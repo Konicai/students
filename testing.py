@@ -37,6 +37,16 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual("jane.smith@example.com", result[1][3])
         self.assertEqual(datetime.date(2023, 9, 2), result[2][4])
 
+    def test_add_student(self):
+        student = ("Zane", "Labonte-Hagar", "zanelabontehagar@cmail.carleton.ca", datetime.date(2024, 3, 15))
+
+        self.students.addStudent(student[0], student[1], student[2], student[3])
+
+        result = self.students.getAllStudents()
+        result = [s[1:] for s in result]  # remove the SERIAL student_id from each because it's unreliable for testing
+
+        self.assertIn(student, result)
+
 
 if __name__ == '__main__':
     unittest.main()

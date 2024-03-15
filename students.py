@@ -20,7 +20,7 @@ class StudentsConnection:
         with self.connection.cursor() as cursor:
             cursor.execute("""
             INSERT INTO students (first_name, last_name, email, enrollment_date) 
-            VALUES ('%s', '%s', '%s', '%s');
+            VALUES (%s, %s, %s, %s);
             """, (first_name, last_name, email, enrollment_date))
 
             if self.autocommit:
@@ -41,7 +41,7 @@ class StudentsConnection:
         with self.connection.cursor() as cursor:
             cursor.execute("""
             DELETE FROM students
-            WHERE student_id = %s
+            WHERE student_id=%s
             """, (student_id,))
 
             if self.autocommit:
