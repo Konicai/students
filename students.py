@@ -1,6 +1,25 @@
 from datetime import date
 import psycopg
 
+ID_INDEX = 0
+FIRST_NAME_INDEX = 1
+LAST_NAME_INDEX = 2
+EMAIL_INDEX = 3
+DATE_INDEX = 4
+
+
+def students_as_map(records):
+    """
+    Converts a sequence of students records to a map
+    :param records: a sequence of the records of the students table
+    :return: a map of student ID to the remaining attributes
+    """
+    id_map = {}
+    for record in records:
+        id_map[record[ID_INDEX]] = record[1:]  # remove ID
+
+    return id_map
+
 
 class StudentsConnection:
 
