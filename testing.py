@@ -4,6 +4,8 @@ import datetime
 
 
 class MyTestCase(unittest.TestCase):
+
+    commit_changes = False
     students = None
 
     @classmethod
@@ -21,8 +23,11 @@ class MyTestCase(unittest.TestCase):
         self.students.connection.transaction()
 
     def tearDown(self) -> None:
-        # rollback the transaction (anything the test changed)
-        self.students.connection.rollback()
+        if self.commit_changes:
+            self.students.connection.commit()
+        else:
+            # rollback the transaction (anything the test changed)
+            self.students.connection.rollback()
 
     def test_get_all(self):
         result = self.students.getAllStudents()
